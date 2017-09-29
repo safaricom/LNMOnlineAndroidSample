@@ -1,7 +1,7 @@
 # LNMOnlineAndroidSample
 Lipa Na MPESA Online Android Sample Application
 
-This is to demonstrate implementation of the Lipa Na MPESA Online API from the (https://developer.safaricom.co.ke/ "Safaricom Developer Portal")
+This is to demonstrate implementation of the Lipa Na MPESA Online API from the Safaricom Developer Portal https://developer.safaricom.co.ke/
 
 ##  Installation
 1. Create and account on the Safaricom Developer Portal -> https://developer.safaricom.co.ke/
