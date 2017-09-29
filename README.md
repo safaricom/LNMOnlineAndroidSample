@@ -11,17 +11,17 @@ This is to demonstrate implementation of the Lipa Na MPESA Online API from the (
 
 ##  Screenshots
 
-Add an item to the cart: 
+##### Add an item to the cart: 
 ![alt text](https://github.com/safaricom/LNMOnlineAndroidSample/blob/master/a.jpg "Screen A")
 
-Add a customers phone number: 
+##### Add a customers phone number: 
 ![alt text](https://github.com/safaricom/LNMOnlineAndroidSample/blob/master/b.jpg "Screen B")
 
-The STK push payment popup is sent to the customer phone: 
+##### The STK push payment popup is sent to the customer phone: 
 ![alt text](https://github.com/safaricom/LNMOnlineAndroidSample/blob/master/c.jpg "Screen C")
 
-MPESA confirmation message: 
+##### MPESA confirmation message: 
 ![alt text](https://github.com/safaricom/LNMOnlineAndroidSample/blob/master/d.jpg "Screen D")
 
-Payment confirmation from the API callback: 
+##### Payment confirmation from the API callback: 
 ![alt text](https://github.com/safaricom/LNMOnlineAndroidSample/blob/master/e.jpg "Screen E")
