@@ -25,3 +25,12 @@ This is to demonstrate implementation of the Lipa Na MPESA Online API from the (
 
 ##### Payment confirmation from the API callback: 
 ![alt text](https://github.com/safaricom/LNMOnlineAndroidSample/blob/master/e.jpg "Screen E")
+
+### Third Part Libs Used
+1. Sweet alerts https://github.com/pedant/sweet-alert-dialog
+2. Butterknife https://github.com/JakeWharton/butterknife
+3. Retrofit http://square.github.io/retrofit/
+4. GSON https://github.com/google/gson
+5. FireBase https://firebase.google.com/docs/android/setup
+6. okhttp http://square.github.io/okhttp/
+7. okio https://github.com/square/okio
