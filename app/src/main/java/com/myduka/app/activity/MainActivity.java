@@ -231,11 +231,11 @@ public class MainActivity extends AppCompatActivity implements PriceTransfer {
 
     public void getPhoneNumber() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Enter Customer's phone number (254XXX) to checkout Kshs " + String.valueOf(getTotal(prices)));
+        builder.setTitle("Enter Customer's Safaricom phone number (254XXX) to checkout Kshs " + String.valueOf(getTotal(prices)));
 
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_PHONE);
-        input.setText("254728762287");
+        input.setText("2547");
         builder.setView(input);
 
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
