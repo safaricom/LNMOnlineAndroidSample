@@ -23,6 +23,12 @@ package com.myduka.app.app;
  */
 
 public class Config {
+
+    //Use credentials from your Lipa na MPESA Online(MPesa Express) App from the developer portal
+
+    public static final String CONSUMER_KEY = "ZYAS1e58VNdH03oD7CKUPBjKk1I8mbsr"; //YOUR_CONSUMER_KEY
+    public static final String CONSUMER_SECRET = "GcocPU0l7zGC3ru6"; //YOUR_CONSUMER_SECRET
+
     // global topic to receive app wide push notifications
     public static final String TOPIC_GLOBAL = "global";
 
@@ -35,4 +41,13 @@ public class Config {
     public static final int NOTIFICATION_ID_BIG_IMAGE = 101;
 
     public static final String SHARED_PREF = "ah_firebase";
+
+    //STKPush Properties
+    public static final String BUSINESS_SHORT_CODE = "174379";
+    public static final String PASSWORD = "MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMTYwMjE2MTY1NjI3";
+    public static final String TRANSACTION_TYPE = "CustomerPayBillOnline";
+    public static final String PARTYB = "174379";
+    public static final String CALLBACKURL = "https://spurquoteapp.ga/pusher/pusher.php?title=stk_push&message=result&push_type=individual&regId=";
+
+    public static final String TOKEN_URL = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
 }
