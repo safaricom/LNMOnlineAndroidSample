@@ -8,7 +8,7 @@ This is to demonstrate implementation of the Lipa Na MPESA Online API from the S
 2. Create a Lipa na MPESA Online App
 3. Clone the Repository and build the project
 4. Update the `Config.java` file with your consumer key and secret from the portal.
-5. Setup Firebase Cloud Messaging.Tutorial -> [here] (https://www.androidhive.info/2012/10/android-push-notifications-using-google-cloud-messaging-gcm-php-and-mysql/)
+5. Setup Firebase Cloud Messaging.Tutorial -> https://www.androidhive.info/2012/10/android-push-notifications-using-google-cloud-messaging-gcm-php-and-mysql/
 
 ##  Screenshots
 
