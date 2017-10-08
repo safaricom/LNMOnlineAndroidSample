@@ -20,6 +20,7 @@ package com.myduka.app.activity;
 
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -100,17 +101,19 @@ public class MainActivity extends AppCompatActivity implements PriceTransfer {
     ArrayList<Integer> prices = new ArrayList<>();
     private ArrayList<String> slideshow;
 
+    ProgressDialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        dialog = new ProgressDialog(this);
 
-//        Use credentials from your Lipa na MPESA Online(MPesa Express) App from the developer portal
-        getToken("YOUR_CONSUMER_KEY", "YOUR_CONSUMER_SECRET");
 
-        layoutManager
-                = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false);
+        getToken(Config.CONSUMER_KEY, Config.CONSUMER_SECRET);
+
+        layoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false);
 
         cart_list.setLayoutManager(layoutManager);
         cart_list.addItemDecoration(new RecyclerviewListDecorator(MainActivity.this,
@@ -181,18 +184,16 @@ public class MainActivity extends AppCompatActivity implements PriceTransfer {
         }
     }
 
-    public String getToken(String clientKey, String clientSectret) {
+    public String getToken(String clientKey, String clientSecret) {
 
         try {
-            String keys = clientKey + ":" + clientSectret;
-            String base64 = Base64.encodeToString(keys.getBytes(), Base64.DEFAULT);
+            String keys = clientKey + ":" + clientSecret;
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
-                    .url("https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials")
+                    .url(Config.TOKEN_URL)
                     .get()
-                    .addHeader("authorization", "Basic " + base64.trim())
+                    .addHeader("authorization", "Basic " + Base64.encodeToString(keys.getBytes(), Base64.NO_WRAP))
                     .addHeader("cache-control", "no-cache")
-                    .addHeader("postman-token", "b0432d90-dc69-1b08-e289-695651a7d5dd")
                     .build();
 
             client.newCall(request)
@@ -223,7 +224,7 @@ public class MainActivity extends AppCompatActivity implements PriceTransfer {
 
                     });
         } catch (Exception e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             Toast.makeText(MainActivity.this, "Please add your app credentials", Toast.LENGTH_LONG).show();
         }
         return token;
@@ -231,7 +232,7 @@ public class MainActivity extends AppCompatActivity implements PriceTransfer {
 
     public void getPhoneNumber() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Enter Customer's Safaricom phone number (254XXX) to checkout Kshs " + String.valueOf(getTotal(prices)));
+        builder.setTitle("Enter Customer's Safaricom phone number (2547XXX) to checkout Kshs " + String.valueOf(getTotal(prices)));
 
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_PHONE);
@@ -245,7 +246,7 @@ public class MainActivity extends AppCompatActivity implements PriceTransfer {
                 try {
                     performSTKPush(phone_number);
                 }catch (Exception e){
-                    Toast.makeText(MainActivity.this,"Error fetchng token", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this,"Error fetching token", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -262,18 +263,21 @@ public class MainActivity extends AppCompatActivity implements PriceTransfer {
     }
 
     public void performSTKPush(String phone_number) {
-        //Log.e("Button CLicked", "Button CLicked");
-        STKPush stkPush = new STKPush("174379",
-                "MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMTYwMjE2MTY1NjI3",
+        dialog.setMessage("Processing..");
+        dialog.setTitle("Please Wait");
+        dialog.setIndeterminate(true);
+        dialog.show();
+        STKPush stkPush = new STKPush(Config.BUSINESS_SHORT_CODE,
+                Config.PASSWORD,
                 "20160216165627",
-                "CustomerPayBillOnline",
-                String.valueOf((int) getTotal(prices)),
+                Config.TRANSACTION_TYPE,
+                String.valueOf(getTotal(prices)),
                 phone_number,
-                "174379",
+                Config.PARTYB,
                 phone_number,
-                "https://spurquoteapp.ga/pusher/pusher.php?title=stk_push&message=result&push_type=individual&regId=" + regId,
-                "test",
-                "test");
+                Config.CALLBACKURL + regId,
+                "test", //The account reference
+                "test"); //The transaction description
 
         Log.e("Party B", phone_number);
 
@@ -281,11 +285,11 @@ public class MainActivity extends AppCompatActivity implements PriceTransfer {
         call.enqueue(new Callback<STKPush>() {
             @Override
             public void onResponse(Call<STKPush> call, Response<STKPush> response) {
+                dialog.dismiss();
                 try {
                     //Log.e("Response SUccess", response.toString());
                     if (response.isSuccessful()) {
-
-                        Log.e(TAG, "post submitted to API." + response.body().toString());
+                        Log.d(TAG, "post submitted to API." + response.body().toString());
                     } else {
                         Log.e("Response", response.errorBody().string());
                     }
@@ -296,6 +300,7 @@ public class MainActivity extends AppCompatActivity implements PriceTransfer {
 
             @Override
             public void onFailure(Call<STKPush> call, Throwable t) {
+                dialog.dismiss();
                 Log.e(TAG, "Unable to submit post to API." + t.getMessage());
                 t.printStackTrace();
                 Log.e("Error message", t.getLocalizedMessage());
@@ -370,7 +375,7 @@ public class MainActivity extends AppCompatActivity implements PriceTransfer {
         // hide the notification after its selected
         noti.flags |= Notification.FLAG_AUTO_CANCEL;
 
-        notificationManager.notify(0, noti);
+        notificationManager.notify(1, noti);
 
     }
 

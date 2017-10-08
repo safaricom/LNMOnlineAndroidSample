@@ -7,7 +7,8 @@ This is to demonstrate implementation of the Lipa Na MPESA Online API from the S
 1. Create and account on the Safaricom Developer Portal -> https://developer.safaricom.co.ke/
 2. Create a Lipa na MPESA Online App
 3. Clone the Repository and build the project
-4. Setup Firebase Cloud Messaging. Android FireBase Cloud Messaging Tutorial -> https://www.androidhive.info/2012/10/android-push-notifications-using-google-cloud-messaging-gcm-php-and-mysql/
+4. Update the `Config.java` file with your consumer key and secret from the portal.
+5. Setup Firebase Cloud Messaging.Tutorial -> https://www.androidhive.info/2012/10/android-push-notifications-using-google-cloud-messaging-gcm-php-and-mysql/
 
 ##  Screenshots
 
@@ -26,7 +27,7 @@ This is to demonstrate implementation of the Lipa Na MPESA Online API from the S
 ##### Payment confirmation from the API callback: 
 ![alt text](https://github.com/safaricom/LNMOnlineAndroidSample/blob/master/e.jpg "Screen E")
 
-### Third Part Libs Used
+### Third Party Libs Used
 1. Sweet alerts https://github.com/pedant/sweet-alert-dialog
 2. Butterknife https://github.com/JakeWharton/butterknife
 3. Retrofit http://square.github.io/retrofit/
