@@ -26,8 +26,8 @@ public class Config {
 
     //Use credentials from your Lipa na MPESA Online(MPesa Express) App from the developer portal
 
-    public static final String CONSUMER_KEY = "ZYAS1e58VNdH03oD7CKUPBjKk1I8mbsr"; //YOUR_CONSUMER_KEY
-    public static final String CONSUMER_SECRET = "GcocPU0l7zGC3ru6"; //YOUR_CONSUMER_SECRET
+    public static final String CONSUMER_KEY = "YOUR_CONSUMER_KEY";
+    public static final String CONSUMER_SECRET = "YOUR_CONSUMER_SECRET"; 
 
     // global topic to receive app wide push notifications
     public static final String TOPIC_GLOBAL = "global";
