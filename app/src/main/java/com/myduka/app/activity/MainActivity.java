@@ -58,6 +58,7 @@ import com.myduka.app.api.STKPush;
 import com.myduka.app.api.StoreKey;
 import com.myduka.app.api.services.STKPushService;
 import com.myduka.app.app.Config;
+import com.myduka.app.app.Utils;
 import com.myduka.app.utils.NotificationUtils;
 import com.myduka.app.utils.RecyclerviewListDecorator;
 
@@ -232,11 +233,11 @@ public class MainActivity extends AppCompatActivity implements PriceTransfer {
 
     public void getPhoneNumber() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Enter Customer's Safaricom phone number (2547XXX) to checkout Kshs " + String.valueOf(getTotal(prices)));
+        builder.setTitle("Enter Customer's Safaricom phone number (07XXX) to checkout Kshs " + String.valueOf(getTotal(prices)));
 
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_PHONE);
-        input.setText("2547");
+        input.setHint("07xxxxxxxx");
         builder.setView(input);
 
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -267,14 +268,15 @@ public class MainActivity extends AppCompatActivity implements PriceTransfer {
         dialog.setTitle("Please Wait");
         dialog.setIndeterminate(true);
         dialog.show();
+        String timestamp = Utils.getTimestamp();
         STKPush stkPush = new STKPush(Config.BUSINESS_SHORT_CODE,
-                Config.PASSWORD,
-                "20160216165627",
+                Utils.getPassword(Config.BUSINESS_SHORT_CODE, Config.PASSKEY, timestamp),
+                timestamp,
                 Config.TRANSACTION_TYPE,
                 String.valueOf(getTotal(prices)),
-                phone_number,
+                Utils.sanitizePhoneNumber(phone_number),
                 Config.PARTYB,
-                phone_number,
+                Utils.sanitizePhoneNumber(phone_number),
                 Config.CALLBACKURL + regId,
                 "test", //The account reference
                 "test"); //The transaction description
