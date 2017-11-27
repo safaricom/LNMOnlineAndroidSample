@@ -233,7 +233,7 @@ public class MainActivity extends AppCompatActivity implements PriceTransfer {
 
     public void getPhoneNumber() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Enter Customer's Safaricom phone number (07XXX) to checkout Kshs " + String.valueOf(getTotal(prices)));
+        builder.setTitle("Enter Customer's Safaricom phone number (2547XXX) to checkout Kshs " + String.valueOf(getTotal(prices)));
 
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_PHONE);
