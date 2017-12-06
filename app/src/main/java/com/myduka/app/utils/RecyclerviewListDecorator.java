@@ -51,6 +51,10 @@ public class RecyclerviewListDecorator extends RecyclerView.ItemDecoration {
         setOrientation(orientation);
     }
 
+    /**
+     * Setting orientation
+     */
+
     public void setOrientation(int orientation) {
         if (orientation != HORIZONTAL_LIST && orientation != VERTICAL_LIST) {
             throw new IllegalArgumentException("invalid orientation");
@@ -67,6 +71,10 @@ public class RecyclerviewListDecorator extends RecyclerView.ItemDecoration {
         }
     }
 
+    /**
+     * Drawing only virtical lines in Android
+     */
+
     public void drawVertical(Canvas c, RecyclerView parent) {
         final int left = parent.getPaddingLeft();
         final int right = parent.getWidth() - parent.getPaddingRight();
@@ -82,6 +90,14 @@ public class RecyclerviewListDecorator extends RecyclerView.ItemDecoration {
             mDivider.draw(c);
         }
     }
+
+
+
+    /**
+     * Drawing only horizontal lines in Android
+     */
+
+
 
     public void drawHorizontal(Canvas c, RecyclerView parent) {
         final int top = parent.getPaddingTop();
