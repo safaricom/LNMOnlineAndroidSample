@@ -38,6 +38,7 @@ public class RetrofitClient {
 
     public static Retrofit getClient(String baseUrl, final String token) {
         if (retrofit==null) {
+            //Create OkHttpClient
             OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
                 @Override
                 public Response intercept(Chain chain) throws IOException {
@@ -49,6 +50,7 @@ public class RetrofitClient {
             }).build();
 
             //Log.e("header token", token);
+            //The created OkHttp client has to be added to Retrofit client
 
             retrofit = new Retrofit.Builder()
                     .client(client)
