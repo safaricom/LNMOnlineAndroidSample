@@ -77,6 +77,9 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
     }
 
     @Override
+    /**
+     * tells the Adapter that how many rows are there to display
+     */
     public int getItemCount() {
         return items.size();
     }
@@ -105,6 +108,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
                 prices.add(Integer.valueOf(btn_add_to_cart.getText().toString().replace("Add Kshs ", "")));
                 Toast.makeText(context, String.valueOf("Added: " + items.get(position)), Toast.LENGTH_SHORT).show();
                 //Log.e("value added to list", btn_add_to_cart.getText().toString().replace("Add Kshs ", ""));
+                //Calling a class priceTransfer.java
                 priceTransfer.setPrices(prices);
             }
         }
