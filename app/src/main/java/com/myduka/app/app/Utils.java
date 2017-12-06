@@ -35,6 +35,7 @@ public class Utils {
     }
     public static String getPassword(String businessShortCode, String passkey, String timestamp){
         String str = businessShortCode + passkey + timestamp;
+        //encode the password to Base64
         return Base64.encodeToString(str.getBytes(), Base64.NO_WRAP);
     }
 }
