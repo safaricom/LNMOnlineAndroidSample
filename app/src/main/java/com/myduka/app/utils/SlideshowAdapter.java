@@ -67,6 +67,10 @@ public class SlideshowAdapter extends RecyclerView.Adapter<SlideshowAdapter.Slid
     @Override
     public void onBindViewHolder(SlideshowViewHolder holder, final int position) {
 
+        /**
+         * Retrieve images:
+         */
+
         switch (position){
             case 0:
                 holder.slideshow_image.setImageDrawable(context.getResources().getDrawable(R.drawable.fruits_a));
@@ -83,6 +87,9 @@ public class SlideshowAdapter extends RecyclerView.Adapter<SlideshowAdapter.Slid
 
     @Override
     public int getItemCount() {
+        /**
+         * Returns the total number of items in the data set held by the adapter.
+         */
         return showcase.size();
     }
 }
