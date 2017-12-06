@@ -34,7 +34,7 @@ public class StoreKey {
     private static final String SHARED_PREFER_FILE_NAME = "keys";
 
     /**
-     * Retrieve the value of key_name.
+     * Retrieve data from preference:
      */
 
     public StoreKey(Context context) {
@@ -42,8 +42,9 @@ public class StoreKey {
         pref = context.getSharedPreferences(SHARED_PREFER_FILE_NAME, PRIVATE_MODE);
         editor = pref.edit();
     }
+
     /**
-     * Saving the value of key_name.
+     * Setting values in Preference:
      */
 
 
