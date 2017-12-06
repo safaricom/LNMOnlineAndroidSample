@@ -25,7 +25,7 @@ import com.myduka.app.api.services.STKPushService;
  */
 
 public class ApiUtils {
-    //endpoint
+    //endpoint of my Api
     public static final String BASE_URL = "https://sandbox.safaricom.co.ke/";
 
     public static STKPushService getTasksService(String token) {
