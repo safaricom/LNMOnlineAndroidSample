@@ -119,12 +119,13 @@ public class MainActivity extends AppCompatActivity implements PriceTransfer {
         cart_list.setLayoutManager(layoutManager);
         cart_list.addItemDecoration(new RecyclerviewListDecorator(MainActivity.this,
                 LinearLayoutManager.HORIZONTAL));
-
+// Creating fruit ArrayList.
         cart_items = new ArrayList<>();
         cart_items.add("Tomatoes");
         cart_items.add("Apples");
         cart_items.add("Bananas");
 
+// creating price ArrayList
         cart_prices = new ArrayList<>();
         cart_prices.add("1");
         cart_prices.add("200");
@@ -160,6 +161,7 @@ public class MainActivity extends AppCompatActivity implements PriceTransfer {
             @Override
             public void onClick(View v) {
                 if (prices.size() > 0)
+                    //Calling getPhoneNumber method.
                     getPhoneNumber();
             }
         });
