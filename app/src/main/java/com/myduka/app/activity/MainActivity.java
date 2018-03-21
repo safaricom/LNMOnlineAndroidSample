@@ -54,8 +54,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.myduka.app.R;
 import com.myduka.app.api.ApiUtils;
-import com.myduka.app.api.STKPush;
-import com.myduka.app.api.StoreKey;
+import com.myduka.app.api.model.STKPush;
+import com.myduka.app.utils.SharedPrefsUtil;
 import com.myduka.app.api.services.STKPushService;
 import com.myduka.app.app.Config;
 import com.myduka.app.app.Utils;
@@ -320,8 +320,8 @@ public class MainActivity extends AppCompatActivity implements PriceTransfer {
         //Log.e(TAG, "Firebase reg id: " + regId);
 
         if (!TextUtils.isEmpty(regId)) {
-            StoreKey storeKey = new StoreKey(MainActivity.this);
-            storeKey.createKey(regId);
+            SharedPrefsUtil sharedPrefsUtil = new SharedPrefsUtil(MainActivity.this);
+            sharedPrefsUtil.createKey(regId);
         }
     }
 

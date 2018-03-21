@@ -16,7 +16,7 @@
  *
  */
 
-package com.myduka.app.api;
+package com.myduka.app.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -25,7 +25,7 @@ import android.content.SharedPreferences;
  * Created  on 7/4/2017.
  */
 
-public class StoreKey {
+public class SharedPrefsUtil {
     SharedPreferences pref;
     SharedPreferences.Editor editor;
     Context context;
@@ -37,7 +37,7 @@ public class StoreKey {
      * Retrieve data from preference:
      */
 
-    public StoreKey(Context context) {
+    public SharedPrefsUtil(Context context) {
         this.context = context;
         pref = context.getSharedPreferences(SHARED_PREFER_FILE_NAME, PRIVATE_MODE);
         editor = pref.edit();
