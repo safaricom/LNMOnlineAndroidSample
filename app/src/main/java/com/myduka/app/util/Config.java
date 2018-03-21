@@ -16,7 +16,7 @@
  *
  */
 
-package com.myduka.app.app;
+package com.myduka.app.util;
 
 /**
  * Created  on 6/30/2017.

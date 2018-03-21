@@ -16,7 +16,7 @@
  *
  */
 
-package com.myduka.app.utils;
+package com.myduka.app.util;
 
 import android.app.ActivityManager;
 import android.app.Notification;
@@ -39,7 +39,6 @@ import android.text.TextUtils;
 import android.util.Patterns;
 
 import com.myduka.app.R;
-import com.myduka.app.app.Config;
 
 import java.io.IOException;
 import java.io.InputStream;

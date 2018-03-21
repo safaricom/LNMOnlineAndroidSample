@@ -16,7 +16,7 @@
  *
  */
 
-package com.myduka.app.activity;
+package com.myduka.app.ui.activity;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -53,14 +53,16 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.myduka.app.R;
+import com.myduka.app.ui.adapter.CartListAdapter;
+import com.myduka.app.ui.callback.PriceTransfer;
 import com.myduka.app.api.ApiUtils;
 import com.myduka.app.api.model.STKPush;
-import com.myduka.app.utils.SharedPrefsUtil;
+import com.myduka.app.util.SharedPrefsUtil;
 import com.myduka.app.api.services.STKPushService;
-import com.myduka.app.app.Config;
-import com.myduka.app.app.Utils;
-import com.myduka.app.utils.NotificationUtils;
-import com.myduka.app.utils.RecyclerviewListDecorator;
+import com.myduka.app.util.Config;
+import com.myduka.app.util.Utils;
+import com.myduka.app.util.NotificationUtils;
+import com.myduka.app.ui.RecyclerviewListDecorator;
 
 import junit.framework.Assert;
 

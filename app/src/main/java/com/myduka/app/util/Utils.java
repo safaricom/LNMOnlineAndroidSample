@@ -1,4 +1,4 @@
-package com.myduka.app.app;
+package com.myduka.app.util;
 
 import android.util.Base64;
 

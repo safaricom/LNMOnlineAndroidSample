@@ -16,7 +16,7 @@
  *
  */
 
-package com.myduka.app.activity;
+package com.myduka.app.ui.activity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -33,8 +33,8 @@ import android.widget.Toast;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.myduka.app.R;
-import com.myduka.app.app.Config;
-import com.myduka.app.utils.NotificationUtils;
+import com.myduka.app.util.Config;
+import com.myduka.app.util.NotificationUtils;
 
 public class NotificationActivity extends AppCompatActivity {
 

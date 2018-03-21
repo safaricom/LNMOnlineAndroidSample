@@ -24,7 +24,7 @@ import android.support.v4.content.LocalBroadcastManager;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
-import com.myduka.app.app.Config;
+import com.myduka.app.util.Config;
 
 /**
  * Created  on 6/30/2017.

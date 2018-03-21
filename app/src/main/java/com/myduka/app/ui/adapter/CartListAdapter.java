@@ -16,7 +16,7 @@
  *
  */
 
-package com.myduka.app.activity;
+package com.myduka.app.ui.adapter;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -30,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.myduka.app.R;
+import com.myduka.app.ui.callback.PriceTransfer;
 
 import java.util.ArrayList;
 import java.util.List;

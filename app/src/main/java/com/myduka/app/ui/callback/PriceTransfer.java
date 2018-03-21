@@ -16,7 +16,7 @@
  *
  */
 
-package com.myduka.app.activity;
+package com.myduka.app.ui.callback;
 
 import java.util.ArrayList;
 
