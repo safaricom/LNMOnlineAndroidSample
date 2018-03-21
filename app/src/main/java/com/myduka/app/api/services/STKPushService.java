@@ -18,7 +18,7 @@
 
 package com.myduka.app.api.services;
 
-import com.myduka.app.api.STKPush;
+import com.myduka.app.api.model.STKPush;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

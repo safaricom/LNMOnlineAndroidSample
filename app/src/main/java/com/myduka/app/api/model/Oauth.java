@@ -16,7 +16,7 @@
  *
  */
 
-package com.myduka.app.api;
+package com.myduka.app.api.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
