@@ -48,6 +48,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import static android.content.Context.NOTIFICATION_SERVICE;
 import static com.myduka.app.util.AppConstants.NOTIFICATION_ID;
 import static com.myduka.app.util.AppConstants.NOTIFICATION_ID_BIG_IMAGE;
 
@@ -130,7 +131,7 @@ public class NotificationUtils {
                 .setContentText(message)
                 .build();
 
-        NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(NOTIFICATION_ID, notification);
     }
 
@@ -152,8 +153,20 @@ public class NotificationUtils {
                 .setContentText(message)
                 .build();
 
-        NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(NOTIFICATION_ID_BIG_IMAGE, notification);
+    }
+
+    public static void createNotification(Context context, String content) {
+        Notification noti = new Notification.Builder(context)
+                .setContentTitle(content)
+                .setContentText("Subject").setSmallIcon(R.mipmap.ic_launcher).build();
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+        // hide the notification after its selected
+        noti.flags |= Notification.FLAG_AUTO_CANCEL;
+
+        notificationManager.notify(1, noti);
+
     }
 
     /**
@@ -217,7 +230,7 @@ public class NotificationUtils {
 
     // Clears notification tray messages
     public static void clearNotifications(Context context) {
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
         notificationManager.cancelAll();
     }
 
