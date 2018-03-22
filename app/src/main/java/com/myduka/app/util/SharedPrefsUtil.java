@@ -26,10 +26,8 @@ import android.content.SharedPreferences;
  */
 
 public class SharedPrefsUtil {
-    SharedPreferences pref;
-    SharedPreferences.Editor editor;
-    Context context;
-    int PRIVATE_MODE = 0;
+    private SharedPreferences pref;
+    private SharedPreferences.Editor editor;
 
     private static final String SHARED_PREFER_FILE_NAME = "keys";
 
@@ -38,23 +36,18 @@ public class SharedPrefsUtil {
      */
 
     public SharedPrefsUtil(Context context) {
-        this.context = context;
+        int PRIVATE_MODE = 0;
         pref = context.getSharedPreferences(SHARED_PREFER_FILE_NAME, PRIVATE_MODE);
         editor = pref.edit();
+        editor.apply();
     }
 
-    /**
-     * Setting values in Preference:
-     */
-
-
-    public void createKey(String key_name) {
-        editor.putString("key_name", key_name);
+    public void saveFirebaseRegistrationID(String firebaseRegId){
+        editor.putString("regId", firebaseRegId);
         editor.commit();
     }
 
-    public String getTableName(){
-        String table_name = pref.getString("key_name", null);
-        return table_name;
+    public String getirebaseRegistrationID(){
+       return pref.getString("regId", null);
     }
 }
