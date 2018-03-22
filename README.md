@@ -13,7 +13,7 @@ Documentation on the API can be found on [Safaricom Developer Portal] (https://d
 2. Create a Lipa na MPESA Online App
 
 ### Project Setup
-1. Rename  `sample.gradle.properties` file to `gradle.properties` then add you Consumer key and Consumer secret.
+1. Rename  `sample.gradle.properties` file to `gradle.properties` then add you `Consumer key` and `Consumer secret`.
 2. Copy `sample-google-services.json` inside `app` directory and rename it to `google-services.json`. This will ensure your project build without an error.
 
 #### NB
@@ -47,3 +47,5 @@ In order to send push notifications to the user, you will need to setup [FCM - F
 5. [FireBase] (https://firebase.google.com/docs/android/setup)
 6. [Okhttp] (http://square.github.io/okhttp/)
 7. [okio] (https://github.com/square/okio)
+8. [OkHttp Interceptors](https://github.com/square/okhttp/wiki/Interceptors)
+9. [Timber] (https://github.com/JakeWharton/timber)
