@@ -1,10 +1,10 @@
-package com.myduka.app.api;
+package com.myduka.app.api.interceptor;
+
 
 
 import android.support.annotation.NonNull;
-import android.util.Base64;
 
-import com.myduka.app.BuildConfig;
+import com.myduka.app.api.ApiClient;
 
 import java.io.IOException;
 
@@ -18,19 +18,18 @@ import okhttp3.Response;
  *
  * @author Thomas Kioko
  */
-public class AccessTokenIterceptor implements Interceptor {
+public class AuthInterceptor implements Interceptor {
 
-    public AccessTokenIterceptor() {
+    private String mAuthToken;
 
+    public AuthInterceptor(String authToken) {
+        mAuthToken = authToken;
     }
 
     @Override
     public Response intercept(@NonNull Chain chain) throws IOException {
-
-        String keys = BuildConfig.CONSUMER_KEY + ":" + BuildConfig.CONSUMER_SECRET;
-
-        Request request = chain.request().newBuilder()
-                .addHeader("Authorization", "Basic " + Base64.encodeToString(keys.getBytes(), Base64.NO_WRAP))
+        Request request  = chain.request().newBuilder()
+                .addHeader("Authorization", "Bearer " + mAuthToken)
                 .build();
         return chain.proceed(request);
     }

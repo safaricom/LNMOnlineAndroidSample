@@ -1,5 +1,7 @@
 package com.myduka.app.api;
 
+import com.myduka.app.api.interceptor.AccessTokenIterceptor;
+import com.myduka.app.api.interceptor.AuthInterceptor;
 import com.myduka.app.api.services.STKPushService;
 
 import java.util.concurrent.TimeUnit;
