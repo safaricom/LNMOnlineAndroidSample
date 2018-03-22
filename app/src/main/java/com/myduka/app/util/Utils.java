@@ -14,8 +14,7 @@ import java.util.Locale;
 public class Utils {
 
     public static String getTimestamp(){
-        String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(new Date());
-        return timeStamp;
+        return new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(new Date());
     }
     public static  String sanitizePhoneNumber(String phone) {
 
