@@ -21,7 +21,7 @@ import okhttp3.Response;
  */
 public class AccessTokenIterceptor implements Interceptor {
 
-    AccessTokenIterceptor() {
+    public AccessTokenIterceptor() {
 
     }
 
