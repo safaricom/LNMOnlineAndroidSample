@@ -26,7 +26,6 @@ import android.text.TextUtils;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.myduka.app.ui.activity.MainActivity;
-import com.myduka.app.util.Config;
 import com.myduka.app.util.NotificationUtils;
 
 import org.json.JSONException;

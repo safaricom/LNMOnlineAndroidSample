@@ -22,7 +22,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
@@ -33,13 +32,11 @@ import android.widget.Toast;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.myduka.app.R;
-import com.myduka.app.util.Config;
 import com.myduka.app.util.NotificationUtils;
 import com.myduka.app.util.SharedPrefsUtil;
 
 import static com.myduka.app.util.AppConstants.PUSH_NOTIFICATION;
 import static com.myduka.app.util.AppConstants.REGISTRATION_COMPLETE;
-import static com.myduka.app.util.AppConstants.SHARED_PREF;
 import static com.myduka.app.util.AppConstants.TOPIC_GLOBAL;
 
 public class NotificationActivity extends AppCompatActivity {
