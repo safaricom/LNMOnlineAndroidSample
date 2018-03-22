@@ -35,6 +35,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.myduka.app.R;
 import com.myduka.app.util.Config;
 import com.myduka.app.util.NotificationUtils;
+import com.myduka.app.util.SharedPrefsUtil;
 
 import static com.myduka.app.util.AppConstants.PUSH_NOTIFICATION;
 import static com.myduka.app.util.AppConstants.REGISTRATION_COMPLETE;
@@ -87,10 +88,8 @@ public class NotificationActivity extends AppCompatActivity {
     // Fetches reg id from shared preferences
     // and displays on the screen
     private void displayFirebaseRegId() {
-        SharedPreferences pref = getApplicationContext().getSharedPreferences(SHARED_PREF, 0);
-        String regId = pref.getString("regId", null);
-
-        //Log.e(TAG, "Firebase reg id: " + regId);
+        SharedPrefsUtil sharedPrefsUtil = new SharedPrefsUtil(this);
+        String regId = sharedPrefsUtil.getirebaseRegistrationID();
 
         if (!TextUtils.isEmpty(regId))
             txtRegId.setText("Firebase Reg Id: " + regId);
