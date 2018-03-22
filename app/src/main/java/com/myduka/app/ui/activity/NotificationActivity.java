@@ -86,7 +86,7 @@ public class NotificationActivity extends AppCompatActivity {
     // and displays on the screen
     private void displayFirebaseRegId() {
         SharedPrefsUtil sharedPrefsUtil = new SharedPrefsUtil(this);
-        String regId = sharedPrefsUtil.getirebaseRegistrationID();
+        String regId = sharedPrefsUtil.getFirebaseRegistrationID();
 
         if (!TextUtils.isEmpty(regId))
             txtRegId.setText("Firebase Reg Id: " + regId);
