@@ -25,28 +25,17 @@ import com.google.gson.annotations.SerializedName;
  * Created  on 7/13/2017.
  */
 
-public class Oauth {
+public class AccessToken {
 
     @SerializedName("access_token")
     @Expose
-    private String accessToken;
+    public String accessToken;
     @SerializedName("expires_in")
     @Expose
-    private String expiresIn;
+    public String expiresIn;
 
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-    public void setAccessToken(String accessToken) {
+    public AccessToken(String accessToken, String expiresIn){
         this.accessToken = accessToken;
-    }
-
-    public String getExpiresIn() {
-        return expiresIn;
-    }
-
-    public void setExpiresIn(String expiresIn) {
         this.expiresIn = expiresIn;
     }
 
