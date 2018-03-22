@@ -42,12 +42,21 @@ public class SharedPrefsUtil {
         editor.apply();
     }
 
-    public void saveFirebaseRegistrationID(String firebaseRegId){
+    public void saveFirebaseRegistrationID(String firebaseRegId) {
         editor.putString("regId", firebaseRegId);
         editor.commit();
     }
 
-    public String getirebaseRegistrationID(){
-       return pref.getString("regId", null);
+    public String getFirebaseRegistrationID() {
+        return pref.getString("regId", null);
+    }
+
+    public void saveIsFirstTime(boolean isFirstTime) {
+        editor.putBoolean("firstTime", isFirstTime);
+        editor.commit();
+    }
+
+    public boolean getIsFirstTime() {
+        return pref.getBoolean("firstTime", false);
     }
 }
