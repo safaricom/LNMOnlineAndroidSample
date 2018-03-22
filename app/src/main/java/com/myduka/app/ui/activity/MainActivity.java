@@ -18,29 +18,23 @@
 
 package com.myduka.app.ui.activity;
 
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
-import android.util.Base64;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -50,123 +44,117 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.myduka.app.R;
+import com.myduka.app.api.ApiClient;
+import com.myduka.app.api.model.AccessToken;
+import com.myduka.app.api.model.STKPush;
+import com.myduka.app.ui.RecyclerviewListDecorator;
 import com.myduka.app.ui.adapter.CartListAdapter;
 import com.myduka.app.ui.callback.PriceTransfer;
-import com.myduka.app.api.ApiUtils;
-import com.myduka.app.api.model.STKPush;
-import com.myduka.app.util.SharedPrefsUtil;
-import com.myduka.app.api.services.STKPushService;
-import com.myduka.app.util.Config;
-import com.myduka.app.util.Utils;
 import com.myduka.app.util.NotificationUtils;
-import com.myduka.app.ui.RecyclerviewListDecorator;
+import com.myduka.app.util.SharedPrefsUtil;
+import com.myduka.app.util.Utils;
 
-import junit.framework.Assert;
-
-import java.io.IOException;
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.pedant.SweetAlert.SweetAlertDialog;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import timber.log.Timber;
+
+import static com.myduka.app.util.AppConstants.BUSINESS_SHORT_CODE;
+import static com.myduka.app.util.AppConstants.CALLBACKURL;
+import static com.myduka.app.util.AppConstants.PARTYB;
+import static com.myduka.app.util.AppConstants.PASSKEY;
+import static com.myduka.app.util.AppConstants.PUSH_NOTIFICATION;
+import static com.myduka.app.util.AppConstants.REGISTRATION_COMPLETE;
+import static com.myduka.app.util.AppConstants.TOPIC_GLOBAL;
+import static com.myduka.app.util.AppConstants.TRANSACTION_TYPE;
 
 
 public class MainActivity extends AppCompatActivity implements PriceTransfer {
 
-    int price_total = 0;
-    private ArrayList<String> sums = new ArrayList<>();
-
     @BindView(R.id.cart_list)
-    RecyclerView cart_list;
+    RecyclerView mRecyclerViewCartList;
     @BindView(R.id.txt_response)
-    TextView txt_response;
+    TextView mTVResponse;
     @BindView(R.id.buttonCheckout)
-    Button buttonCheckout;
+    Button mButtonCheckout;
 
-    private Editable editable;
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private String mFireBaseRegId;
     private BroadcastReceiver mRegistrationBroadcastReceiver;
-    STKPushService stkPushService;
-    private String token = null;
-    private String phone_number = "";
-    private String regId;
-    private LinearLayoutManager layoutManager;
-    ArrayList<String> cart_items;
-    ArrayList<String> cart_prices;
-    ArrayList<Integer> prices = new ArrayList<>();
-    private ArrayList<String> slideshow;
-
-    ProgressDialog dialog;
+    private ProgressDialog mProgressDialog;
+    private SharedPrefsUtil mSharedPrefsUtil;
+    private ApiClient mApiClient;
+    private ArrayList<Integer> mPriceArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        dialog = new ProgressDialog(this);
 
+        mProgressDialog = new ProgressDialog(this);
+        mSharedPrefsUtil = new SharedPrefsUtil(this);
+        mApiClient = new ApiClient();
+        mApiClient.setIsDebug(true); //Set True to enable logging, false to disable.
 
-        getToken(Config.CONSUMER_KEY, Config.CONSUMER_SECRET);
+        getAccessToken();
 
-        layoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false);
 
-        cart_list.setLayoutManager(layoutManager);
-        cart_list.addItemDecoration(new RecyclerviewListDecorator(MainActivity.this,
+        mRecyclerViewCartList.setLayoutManager(layoutManager);
+        mRecyclerViewCartList.addItemDecoration(new RecyclerviewListDecorator(MainActivity.this,
                 LinearLayoutManager.HORIZONTAL));
-// Creating fruit ArrayList.
-        cart_items = new ArrayList<>();
-        cart_items.add("Tomatoes");
-        cart_items.add("Apples");
-        cart_items.add("Bananas");
 
-// creating price ArrayList
-        cart_prices = new ArrayList<>();
-        cart_prices.add("1");
-        cart_prices.add("200");
-        cart_prices.add("120");
+        ArrayList<String> cartItems = new ArrayList<>();
+        cartItems.add("Tomatoes");
+        cartItems.add("Apples");
+        cartItems.add("Bananas");
 
-        cart_list.setAdapter(new CartListAdapter(MainActivity.this, cart_items, cart_prices, MainActivity.this));
+
+        ArrayList<String> cartPrices = new ArrayList<>();
+        cartPrices.add("1");
+        cartPrices.add("200");
+        cartPrices.add("120");
+
+        mRecyclerViewCartList.setAdapter(new CartListAdapter(this, cartItems, cartPrices, MainActivity.this));
 
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
 
                 // checking for type intent filter
-                if (intent.getAction().equals(Config.REGISTRATION_COMPLETE)) {
+                if (intent.getAction().equals(REGISTRATION_COMPLETE)) {
                     // gcm successfully registered
                     // now subscribe to `global` topic to receive app wide notifications
-                    FirebaseMessaging.getInstance().subscribeToTopic(Config.TOPIC_GLOBAL);
+                    FirebaseMessaging.getInstance().subscribeToTopic(TOPIC_GLOBAL);
                     getFirebaseRegId();
 
-                } else if (intent.getAction().equals(Config.PUSH_NOTIFICATION)) {
-                    // new push notification is received
-
+                } else if (intent.getAction().equals(PUSH_NOTIFICATION)) {
                     String message = intent.getStringExtra("message");
-                    //Toast.makeText(getApplicationContext(), "Push notification: " + message, Toast.LENGTH_LONG).show();
-                    createNotification(message);
-                    showResultdialog(message);
+                    NotificationUtils.createNotification(getApplicationContext(), message);
+                    showResultDialog(message);
                 }
             }
         };
 
         getFirebaseRegId();
+    }
 
-        buttonCheckout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (prices.size() > 0)
+    @OnClick({R.id.buttonCheckout})
+    public void onClickViews(View view) {
+        switch (view.getId()) {
+            case R.id.buttonCheckout:
+                if (mPriceArrayList.size() > 0)
                     //Calling getPhoneNumber method.
-                    getPhoneNumber();
-            }
-        });
+                    showCheckoutDialog();
+                break;
+        }
     }
 
     @Override
@@ -174,6 +162,13 @@ public class MainActivity extends AppCompatActivity implements PriceTransfer {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);//Menu Resource, Menu
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        unregisterReceiver(mRegistrationBroadcastReceiver);
     }
 
     @Override
@@ -189,77 +184,45 @@ public class MainActivity extends AppCompatActivity implements PriceTransfer {
         }
     }
 
-    public String getToken(String clientKey, String clientSecret) {
+    public void getAccessToken() {
+        mApiClient.setGetAccessToken(true);
+        mApiClient.mpesaService().getAccessToken().enqueue(new Callback<AccessToken>() {
+            @Override
+            public void onResponse(@NonNull Call<AccessToken> call, @NonNull Response<AccessToken> response) {
 
-        try {
-            String keys = clientKey + ":" + clientSecret;
-            OkHttpClient client = new OkHttpClient();
-            Request request = new Request.Builder()
-                    .url(Config.TOKEN_URL)
-                    .get()
-                    .addHeader("authorization", "Basic " + Base64.encodeToString(keys.getBytes(), Base64.NO_WRAP))
-                    .addHeader("cache-control", "no-cache")
-                    .build();
+                if (response.isSuccessful()) {
+                    mApiClient.setAuthToken(response.body().accessToken);
+                }
+            }
 
-            client.newCall(request)
-                    .enqueue(new okhttp3.Callback() {
-                        @Override
-                        public void onFailure(okhttp3.Call call, IOException e) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(MainActivity.this, "Fetching token failed", Toast.LENGTH_LONG).show();
-                                }
-                            });
-                        }
+            @Override
+            public void onFailure(@NonNull Call<AccessToken> call, @NonNull Throwable t) {
 
-                        
-                        @Override
-                        public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
-                            String res = response.body().string();
-                            token = res;
-
-                            JsonParser jsonParser = new JsonParser();
-                            JsonObject jo = (JsonObject) jsonParser.parse(token).getAsJsonObject();
-                            Assert.assertNotNull(jo);
-                            //Log.e("Token", token + jo.get("access_token"));
-                            token = jo.get("access_token").getAsString();
-                            stkPushService = ApiUtils.getTasksService(token);
-                        }
-
-                    });
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(MainActivity.this, "Please add your app credentials", Toast.LENGTH_LONG).show();
-        }
-        return token;
+            }
+        });
     }
 
-    public void getPhoneNumber() {
+    public void showCheckoutDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Enter Customer's Safaricom phone number (2547XXX) to checkout Kshs " + String.valueOf(getTotal(prices)));
+        builder.setTitle(getString(R.string.checkout_dialog_title, getTotal(mPriceArrayList)));
 
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_PHONE);
-        input.setHint("07xxxxxxxx");
+        input.setHint(getString(R.string.hint_phone_number));
         builder.setView(input);
 
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                phone_number = input.getText().toString();
-                try {
-                    performSTKPush(phone_number);
-                }catch (Exception e){
-                    Toast.makeText(MainActivity.this,"Error fetching token", Toast.LENGTH_SHORT).show();
-                }
+                String phone_number = input.getText().toString();
+                performSTKPush(phone_number);
             }
         });
-        builder.setNegativeButton("Clear Cart", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getString(R.string.clear_cart), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                prices.clear();
-                buttonCheckout.setText("Checkout");
+                mPriceArrayList.clear();
+                mButtonCheckout.setText(getString(R.string.checkout));
                 dialog.cancel();
             }
         });
@@ -268,36 +231,36 @@ public class MainActivity extends AppCompatActivity implements PriceTransfer {
     }
 
     public void performSTKPush(String phone_number) {
-        dialog.setMessage("Processing..");
-        dialog.setTitle("Please Wait");
-        dialog.setIndeterminate(true);
-        dialog.show();
+        mProgressDialog.setMessage(getString(R.string.dialog_message_processing));
+        mProgressDialog.setTitle(getString(R.string.title_wait));
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.show();
         String timestamp = Utils.getTimestamp();
-        STKPush stkPush = new STKPush(Config.BUSINESS_SHORT_CODE,
-                Utils.getPassword(Config.BUSINESS_SHORT_CODE, Config.PASSKEY, timestamp),
+        STKPush stkPush = new STKPush(
+                BUSINESS_SHORT_CODE,
+                Utils.getPassword(BUSINESS_SHORT_CODE, PASSKEY, timestamp),
                 timestamp,
-                Config.TRANSACTION_TYPE,
-                String.valueOf(getTotal(prices)),
+                TRANSACTION_TYPE,
+                String.valueOf(getTotal(mPriceArrayList)),
                 Utils.sanitizePhoneNumber(phone_number),
-                Config.PARTYB,
+                PARTYB,
                 Utils.sanitizePhoneNumber(phone_number),
-                Config.CALLBACKURL + regId,
+                CALLBACKURL + mFireBaseRegId,
                 "test", //The account reference
-                "test"); //The transaction description
+                "test"  //The transaction description
+        );
 
-        Log.e("Party B", phone_number);
+        mApiClient.setGetAccessToken(false);
 
-        Call<STKPush> call = stkPushService.sendPush(stkPush);
-        call.enqueue(new Callback<STKPush>() {
+        mApiClient.mpesaService().sendPush(stkPush).enqueue(new Callback<STKPush>() {
             @Override
-            public void onResponse(Call<STKPush> call, Response<STKPush> response) {
-                dialog.dismiss();
+            public void onResponse(@NonNull Call<STKPush> call, @NonNull Response<STKPush> response) {
+                mProgressDialog.dismiss();
                 try {
-                    //Log.e("Response SUccess", response.toString());
                     if (response.isSuccessful()) {
-                        Log.d(TAG, "post submitted to API." + response.body().toString());
+                        Timber.d("post submitted to API. %s", response.body());
                     } else {
-                        Log.e("Response", response.errorBody().string());
+                        Timber.e("Response %s", response.errorBody().string());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -305,25 +268,18 @@ public class MainActivity extends AppCompatActivity implements PriceTransfer {
             }
 
             @Override
-            public void onFailure(Call<STKPush> call, Throwable t) {
-                dialog.dismiss();
-                Log.e(TAG, "Unable to submit post to API." + t.getMessage());
-                t.printStackTrace();
-                Log.e("Error message", t.getLocalizedMessage());
+            public void onFailure(@NonNull Call<STKPush> call, @NonNull Throwable t) {
+                mProgressDialog.dismiss();
+                Timber.e(t);
             }
         });
-        //Log.e("Method end", "method end");
     }
 
     private void getFirebaseRegId() {
-        SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
-        regId = pref.getString("regId", null);
+        mFireBaseRegId = mSharedPrefsUtil.getFirebaseRegistrationID();
 
-        //Log.e(TAG, "Firebase reg id: " + regId);
-
-        if (!TextUtils.isEmpty(regId)) {
-            SharedPrefsUtil sharedPrefsUtil = new SharedPrefsUtil(MainActivity.this);
-            sharedPrefsUtil.createKey(regId);
+        if (!TextUtils.isEmpty(mFireBaseRegId)) {
+            mSharedPrefsUtil.saveFirebaseRegistrationID(mFireBaseRegId);
         }
     }
 
@@ -333,12 +289,12 @@ public class MainActivity extends AppCompatActivity implements PriceTransfer {
 
         // register GCM registration complete receiver
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
-                new IntentFilter(Config.REGISTRATION_COMPLETE));
+                new IntentFilter(REGISTRATION_COMPLETE));
 
         // register new push message receiver
         // by doing this, the activity will be notified each time a new message arrives
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
-                new IntentFilter(Config.PUSH_NOTIFICATION));
+                new IntentFilter(PUSH_NOTIFICATION));
 
         // clear the notification area when the app is opened
         NotificationUtils.clearNotifications(getApplicationContext());
@@ -352,18 +308,15 @@ public class MainActivity extends AppCompatActivity implements PriceTransfer {
 
     @Override
     public void setPrices(ArrayList<Integer> prices) {
-        //Log.e("Size of list", prices.size() + " ");
-        this.prices = prices;
-        //Log.e("Size of NEW list", this.prices.size() + " ");
-
-        buttonCheckout.setText("Checkout Kshs. " + String.valueOf(getTotal(prices)));
+        this.mPriceArrayList = prices;
+        mButtonCheckout.setText(getString(R.string.checkout_value, getTotal(prices)));
     }
 
     public int getTotal(ArrayList<Integer> prices) {
         int sum = 0;
         for (int i = 0; i < prices.size(); i++) {
             sum = sum + prices.get(i);
-            //Log.e("value to calculate", String.valueOf(prices.get(i)));
+            //Log.e("value to calculate", String.valueOf(mPriceArrayList.get(i)));
         }
 
         if (prices.size() == 0) {
@@ -373,36 +326,21 @@ public class MainActivity extends AppCompatActivity implements PriceTransfer {
             return sum;
     }
 
-    public void createNotification(String content) {
-        Notification noti = new Notification.Builder(this)
-                .setContentTitle(content)
-                .setContentText("Subject").setSmallIcon(R.mipmap.ic_launcher).build();
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        // hide the notification after its selected
-        noti.flags |= Notification.FLAG_AUTO_CANCEL;
 
-        notificationManager.notify(1, noti);
-
-    }
-
-    public void showResultdialog(String result) {
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        if(!prefs.getBoolean("firstTime", false)) {
+    public void showResultDialog(String result) {
+        Timber.d(result);
+        if (!mSharedPrefsUtil.getIsFirstTime()) {
             // run your one time code
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putBoolean("firstTime", true);
-            editor.commit();
+            mSharedPrefsUtil.saveIsFirstTime(true);
 
             new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
-                    .setTitleText("Payment Notification")
-                    .setContentText("Payment made succesfully")
+                    .setTitleText(getString(R.string.title_success))
+                    .setContentText(getString(R.string.dialog_message_success))
                     .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                         @Override
                         public void onClick(SweetAlertDialog sDialog) {
                             sDialog.dismissWithAnimation();
-                            SharedPreferences.Editor editor = prefs.edit();
-                            editor.putBoolean("firstTime", false);
-                            editor.commit();
+                            mSharedPrefsUtil.saveIsFirstTime(false);
                         }
                     })
                     .show();
