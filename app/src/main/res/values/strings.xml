@@ -19,4 +19,21 @@
 <resources>
     <string name="app_name">MyDuka</string>
     <string name="action_checkout">Checkout</string>
+    <string name="checkout">Checkout</string>
+    <string name="clear_cart">Clear Cart"</string>
+
+    <!-- String placeholders-->
+    <string name="checkout_dialog_title">Enter Customer\'s Safaricom phone number to checkout Kshs %1$d </string>
+    <string name="checkout_value">clear_cart %1$d </string>
+
+    <!-- Dialog Titles -->
+    <string name="title_success">Payment Notification</string>
+    <string name="title_wait">Please Wait</string>
+
+    <!-- Dialog Messages-->
+    <string name="dialog_message_success">Payment made successfully</string>
+    <string name="dialog_message_processing">PProcessing…</string>
+
+    <!-- Hints -->
+    <string name="hint_phone_number">07xxxxxxxx</string>
 </resources>
