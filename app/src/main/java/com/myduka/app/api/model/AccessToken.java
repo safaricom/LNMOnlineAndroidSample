@@ -16,14 +16,27 @@
  *
  */
 
-package com.myduka.app.activity;
+package com.myduka.app.api.model;
 
-import java.util.ArrayList;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 /**
- * Created  on 8/1/2017.
+ * Created  on 7/13/2017.
  */
 
-public interface PriceTransfer {
-    public void setPrices(ArrayList<Integer> prices);
+public class AccessToken {
+
+    @SerializedName("access_token")
+    @Expose
+    public String accessToken;
+    @SerializedName("expires_in")
+    @Expose
+    public String expiresIn;
+
+    public AccessToken(String accessToken, String expiresIn){
+        this.accessToken = accessToken;
+        this.expiresIn = expiresIn;
+    }
+
 }

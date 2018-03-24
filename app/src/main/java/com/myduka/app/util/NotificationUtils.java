@@ -16,7 +16,7 @@
  *
  */
 
-package com.myduka.app.utils;
+package com.myduka.app.util;
 
 import android.app.ActivityManager;
 import android.app.Notification;
@@ -39,7 +39,6 @@ import android.text.TextUtils;
 import android.util.Patterns;
 
 import com.myduka.app.R;
-import com.myduka.app.app.Config;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -48,6 +47,10 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import static android.content.Context.NOTIFICATION_SERVICE;
+import static com.myduka.app.util.AppConstants.NOTIFICATION_ID;
+import static com.myduka.app.util.AppConstants.NOTIFICATION_ID_BIG_IMAGE;
 
 /**
  * Created  on 6/30/2017.
@@ -128,8 +131,8 @@ public class NotificationUtils {
                 .setContentText(message)
                 .build();
 
-        NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(Config.NOTIFICATION_ID, notification);
+        NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(NOTIFICATION_ID, notification);
     }
 
     private void showBigNotification(Bitmap bitmap, NotificationCompat.Builder mBuilder, int icon, String title, String message, String timeStamp, PendingIntent resultPendingIntent, Uri alarmSound) {
@@ -150,8 +153,20 @@ public class NotificationUtils {
                 .setContentText(message)
                 .build();
 
-        NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(Config.NOTIFICATION_ID_BIG_IMAGE, notification);
+        NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(NOTIFICATION_ID_BIG_IMAGE, notification);
+    }
+
+    public static void createNotification(Context context, String content) {
+        Notification noti = new Notification.Builder(context)
+                .setContentTitle(content)
+                .setContentText("Subject").setSmallIcon(R.mipmap.ic_launcher).build();
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+        // hide the notification after its selected
+        noti.flags |= Notification.FLAG_AUTO_CANCEL;
+
+        notificationManager.notify(1, noti);
+
     }
 
     /**
@@ -215,7 +230,7 @@ public class NotificationUtils {
 
     // Clears notification tray messages
     public static void clearNotifications(Context context) {
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
         notificationManager.cancelAll();
     }
 

@@ -22,6 +22,8 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
+import timber.log.Timber;
+
 /**
  * Created  on 8/2/2017.
  */
@@ -30,5 +32,10 @@ public class MyDuka extends MultiDexApplication{
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        }
+
     }
 }

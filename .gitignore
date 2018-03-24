@@ -13,3 +13,4 @@
 !/app/src/androidTest/
 app/app-release.apk
 app/libs/
+/gradle.properties

@@ -1,0 +1,76 @@
+{
+  "project_info": {
+    "project_number": "",
+    "firebase_url": "",
+    "project_id": "",
+    "storage_bucket": ""
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:49343:android:be70bd9753bacb79",
+        "android_client_info": {
+          "package_name": "com.myduka.app"
+        }
+      },
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBlC3aH-QPJxQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "493430-sspo2hce60dljqg01tm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:493430:android:b606cd4436489ae6",
+        "android_client_info": {
+          "package_name": "com.myduka.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "4934300-sspa2hce60dljqg01tm.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "49343-gk3bv37bs68p8d34nc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBlC3aH-QPJxQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

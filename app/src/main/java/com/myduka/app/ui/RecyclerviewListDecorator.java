@@ -16,7 +16,7 @@
  *
  */
 
-package com.myduka.app.utils;
+package com.myduka.app.ui;
 
 import android.content.Context;
 import android.content.res.TypedArray;

@@ -16,7 +16,7 @@
  *
  */
 
-package com.myduka.app.api;
+package com.myduka.app.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -25,11 +25,9 @@ import android.content.SharedPreferences;
  * Created  on 7/4/2017.
  */
 
-public class StoreKey {
-    SharedPreferences pref;
-    SharedPreferences.Editor editor;
-    Context context;
-    int PRIVATE_MODE = 0;
+public class SharedPrefsUtil {
+    private SharedPreferences pref;
+    private SharedPreferences.Editor editor;
 
     private static final String SHARED_PREFER_FILE_NAME = "keys";
 
@@ -37,24 +35,28 @@ public class StoreKey {
      * Retrieve data from preference:
      */
 
-    public StoreKey(Context context) {
-        this.context = context;
+    public SharedPrefsUtil(Context context) {
+        int PRIVATE_MODE = 0;
         pref = context.getSharedPreferences(SHARED_PREFER_FILE_NAME, PRIVATE_MODE);
         editor = pref.edit();
+        editor.apply();
     }
 
-    /**
-     * Setting values in Preference:
-     */
-
-
-    public void createKey(String key_name) {
-        editor.putString("key_name", key_name);
+    public void saveFirebaseRegistrationID(String firebaseRegId) {
+        editor.putString("regId", firebaseRegId);
         editor.commit();
     }
 
-    public String getTableName(){
-        String table_name = pref.getString("key_name", null);
-        return table_name;
+    public String getFirebaseRegistrationID() {
+        return pref.getString("regId", null);
+    }
+
+    public void saveIsFirstTime(boolean isFirstTime) {
+        editor.putBoolean("firstTime", isFirstTime);
+        editor.commit();
+    }
+
+    public boolean getIsFirstTime() {
+        return pref.getBoolean("firstTime", false);
     }
 }

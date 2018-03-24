@@ -16,19 +16,14 @@
  *
  */
 
-package com.myduka.app.api;
+package com.myduka.app.ui.callback;
 
-import com.myduka.app.api.services.STKPushService;
+import java.util.ArrayList;
 
 /**
- * Created  on 5/28/2017.
+ * Created  on 8/1/2017.
  */
 
-public class ApiUtils {
-    //endpoint of my Api
-    public static final String BASE_URL = "https://sandbox.safaricom.co.ke/";
-
-    public static STKPushService getTasksService(String token) {
-        return RetrofitClient.getClient(BASE_URL, token).create(STKPushService.class);
-    }
+public interface PriceTransfer {
+    public void setPrices(ArrayList<Integer> prices);
 }

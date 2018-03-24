@@ -18,7 +18,8 @@
 
 package com.myduka.app.api.services;
 
-import com.myduka.app.api.STKPush;
+import com.myduka.app.api.model.AccessToken;
+import com.myduka.app.api.model.STKPush;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -35,4 +36,8 @@ public interface STKPushService {
 
     @GET("jobs/pending")
     Call<STKPush> getTasks();
+
+
+    @GET("oauth/v1/generate?grant_type=client_credentials")
+    Call<AccessToken> getAccessToken();
 }

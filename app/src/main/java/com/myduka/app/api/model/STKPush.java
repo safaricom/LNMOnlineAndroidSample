@@ -16,7 +16,7 @@
  *
  */
 
-package com.myduka.app.api;
+package com.myduka.app.api.model;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -49,7 +49,9 @@ public class STKPush {
     @SerializedName("TransactionDesc")
     private String transactionDesc;
 
-    public STKPush(String businessShortCode, String password, String timestamp, String transactionType, String amount, String partyA, String partyB, String phoneNumber, String callBackURL, String accountReference, String transactionDesc) {
+    public STKPush(String businessShortCode, String password, String timestamp, String transactionType,
+                   String amount, String partyA, String partyB, String phoneNumber, String callBackURL,
+                   String accountReference, String transactionDesc) {
         this.businessShortCode = businessShortCode;
         this.password = password;
         this.timestamp = timestamp;
