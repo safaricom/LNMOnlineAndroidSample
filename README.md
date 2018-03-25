@@ -25,19 +25,19 @@ In order to send push notifications to the user, you will need to setup [FCM - F
 ###  Screenshots
 
 ##### Add an item to the cart: 
-![alt text](https://github.com/safaricom/LNMOnlineAndroidSample/blob/master/a.jpg "Screen A")
+![alt text](https://github.com/safaricom/LNMOnlineAndroidSample/blob/master/art/a.jpg "Screen A")
 
 ##### Add a customers phone number: 
-![alt text](https://github.com/safaricom/LNMOnlineAndroidSample/blob/master/b.jpg "Screen B")
+![alt text](https://github.com/safaricom/LNMOnlineAndroidSample/blob/master/art/b.jpg "Screen B")
 
 ##### The STK push payment popup is sent to the customer phone: 
-![alt text](https://github.com/safaricom/LNMOnlineAndroidSample/blob/master/c.jpg "Screen C")
+![alt text](https://github.com/safaricom/LNMOnlineAndroidSample/blob/master/art/c.jpg "Screen C")
 
 ##### MPESA confirmation message: 
-![alt text](https://github.com/safaricom/LNMOnlineAndroidSample/blob/master/d.jpg "Screen D")
+![alt text](https://github.com/Jaymo/LNMOnlineAndroidSample/blob/master/art/a.jpg "Screen D")
 
 ##### Payment confirmation from the API callback: 
-![alt text](https://github.com/safaricom/LNMOnlineAndroidSample/blob/master/e.jpg "Screen E")
+![alt text](https://github.com/safaricom/LNMOnlineAndroidSample/blob/master/art/e.jpg "Screen E")
 
 ### Libraries Used
 1. [Sweet alerts] (https://github.com/pedant/sweet-alert-dialog)
