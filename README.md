@@ -9,7 +9,7 @@ Documentation on the API can be found on [Safaricom Developer Portal] (https://d
 * Android Studio
 
 ### Getting Safaricom Credentials
-1. Create and account on the [Safaricom Developer Portal] (https://developer.safaricom.co.ke/)
+1. Create an account on the [Safaricom Developer Portal] (https://developer.safaricom.co.ke/)
 2. Create a Lipa na MPESA Online App
 
 ### Project Setup
