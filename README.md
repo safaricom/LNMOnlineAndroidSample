@@ -34,7 +34,7 @@ In order to send push notifications to the user, you will need to setup [FCM - F
 ![alt text](https://github.com/safaricom/LNMOnlineAndroidSample/blob/master/art/c.jpg "Screen C")
 
 ##### MPESA confirmation message: 
-![alt text](https://github.com/Jaymo/LNMOnlineAndroidSample/blob/master/art/a.jpg "Screen D")
+![alt text](https://github.com/Jaymo/LNMOnlineAndroidSample/blob/master/art/d.jpg "Screen D")
 
 ##### Payment confirmation from the API callback: 
 ![alt text](https://github.com/safaricom/LNMOnlineAndroidSample/blob/master/art/e.jpg "Screen E")
