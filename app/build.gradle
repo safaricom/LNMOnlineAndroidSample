@@ -37,11 +37,6 @@ android {
         }
     }
 
-    buildTypes.each {
-        it.buildConfigField 'String', 'CONSUMER_KEY', 'AkJy4AzYBuo17aPFffhazMxJ93yxxgKB'
-        it.buildConfigField 'String', 'CONSUMER_SECRET', 'ooU69NojM0GoyKth'
-    }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -50,6 +45,12 @@ android {
     dataBinding {
         enabled = true
     }
+
+    buildTypes.each {
+        it.buildConfigField 'String', 'CONSUMER_KEY', 'CONSUMER_KEY'
+        it.buildConfigField 'String', 'CONSUMER_SECRET', 'CONSUMER_SECRET'
+    }
+
 }
 
 dependencies {
