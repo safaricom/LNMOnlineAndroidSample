@@ -26,7 +26,6 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class AccessToken {
-
     @SerializedName("access_token")
     @Expose
     public String accessToken;
@@ -34,7 +33,7 @@ public class AccessToken {
     @Expose
     public String expiresIn;
 
-    public AccessToken(String accessToken, String expiresIn){
+    public AccessToken(String accessToken, String expiresIn) {
         this.accessToken = accessToken;
         this.expiresIn = expiresIn;
     }

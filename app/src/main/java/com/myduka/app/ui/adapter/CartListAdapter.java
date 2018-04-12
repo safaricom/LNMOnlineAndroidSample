@@ -42,10 +42,10 @@ import java.util.List;
 public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHolder> {
 
     private final LayoutInflater inflater;
+    PriceTransfer priceTransfer;
     private List<String> items;
     private Context context;
     private Dialog myDialog;
-    PriceTransfer priceTransfer;
     private List<String> item_prices = new ArrayList<>();
     private ArrayList<Integer> prices = new ArrayList<>();
 
@@ -67,7 +67,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
     public void onBindViewHolder(CartListAdapter.ViewHolder viewHolder, int i) {
         viewHolder.item_name.setText(items.get(i));
         viewHolder.btn_add_to_cart.setText("Add Kshs " + item_prices.get(i));
-        viewHolder.item_description.setText(items.get(i) +" fresh and healthy now available.");
+        viewHolder.item_description.setText(items.get(i) + " fresh and healthy now available.");
 
         if (items.get(i).equals("Tomatoes"))
             viewHolder.item_image.setImageDrawable(context.getResources().getDrawable(R.drawable.tomatoes));

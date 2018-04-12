@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ /*
   ~  * Copyright (C) 2017 Safaricom, Ltd.
   ~  *
@@ -39,6 +38,5 @@
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_main" />
-
 
 </android.support.design.widget.CoordinatorLayout>
