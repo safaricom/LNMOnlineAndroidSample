@@ -33,7 +33,6 @@ import org.json.JSONObject;
 
 import static com.myduka.app.util.AppConstants.PUSH_NOTIFICATION;
 
-
 /**
  * Created  on 6/30/2017.
  */

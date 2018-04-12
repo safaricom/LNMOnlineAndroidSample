@@ -31,7 +31,7 @@ public class AccessToken {
     public String accessToken;
     @SerializedName("expires_in")
     @Expose
-    public String expiresIn;
+    private String expiresIn;
 
     public AccessToken(String accessToken, String expiresIn) {
         this.accessToken = accessToken;
