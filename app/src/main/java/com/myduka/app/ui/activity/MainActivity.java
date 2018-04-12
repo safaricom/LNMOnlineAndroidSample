@@ -54,13 +54,13 @@ import com.myduka.app.ui.callback.PriceTransfer;
 import com.myduka.app.util.NotificationUtils;
 import com.myduka.app.util.SharedPrefsUtil;
 import com.myduka.app.util.Utils;
+import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -74,7 +74,6 @@ import static com.myduka.app.util.AppConstants.PUSH_NOTIFICATION;
 import static com.myduka.app.util.AppConstants.REGISTRATION_COMPLETE;
 import static com.myduka.app.util.AppConstants.TOPIC_GLOBAL;
 import static com.myduka.app.util.AppConstants.TRANSACTION_TYPE;
-
 
 public class MainActivity extends AppCompatActivity implements PriceTransfer {
 

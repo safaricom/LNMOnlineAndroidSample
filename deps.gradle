@@ -15,7 +15,6 @@ def versions = [
         circleimageview : '2.2.0',
         jUnit           : '4.12',
         espresso        : '3.0.1',
-
 ]
 
 ext.versions = versions
