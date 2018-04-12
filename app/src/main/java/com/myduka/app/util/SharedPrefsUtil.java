@@ -26,10 +26,9 @@ import android.content.SharedPreferences;
  */
 
 public class SharedPrefsUtil {
+    private static final String SHARED_PREFER_FILE_NAME = "keys";
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
-
-    private static final String SHARED_PREFER_FILE_NAME = "keys";
 
     /**
      * Retrieve data from preference:

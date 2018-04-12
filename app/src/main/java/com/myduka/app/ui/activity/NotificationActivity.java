@@ -51,8 +51,8 @@ public class NotificationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
-        txtRegId = (EditText) findViewById(R.id.txt_reg_id);
-        txtMessage = (TextView) findViewById(R.id.txt_push_message);
+        txtRegId = findViewById(R.id.txt_reg_id);
+        txtMessage = findViewById(R.id.txt_push_message);
 
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override

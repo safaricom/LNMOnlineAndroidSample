@@ -13,12 +13,13 @@ import java.util.Locale;
 
 public class Utils {
 
-    public static String getTimestamp(){
+    public static String getTimestamp() {
         return new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(new Date());
     }
-    public static  String sanitizePhoneNumber(String phone) {
 
-        if(phone.equals("")){
+    public static String sanitizePhoneNumber(String phone) {
+
+        if (phone.equals("")) {
             return "";
         }
 
@@ -26,13 +27,14 @@ public class Utils {
             String p = phone.replaceFirst("^0", "254");
             return p;
         }
-        if(phone.length() == 13 && phone.startsWith("+")){
+        if (phone.length() == 13 && phone.startsWith("+")) {
             String p = phone.replaceFirst("^+", "");
             return p;
         }
         return phone;
     }
-    public static String getPassword(String businessShortCode, String passkey, String timestamp){
+
+    public static String getPassword(String businessShortCode, String passkey, String timestamp) {
         String str = businessShortCode + passkey + timestamp;
         //encode the password to Base64
         return Base64.encodeToString(str.getBytes(), Base64.NO_WRAP);
