@@ -51,8 +51,8 @@ public class NotificationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
-        txtRegId = (EditText) findViewById(R.id.txt_reg_id);
-        txtMessage = (TextView) findViewById(R.id.txt_push_message);
+        txtRegId = findViewById(R.id.txt_reg_id);
+        txtMessage = findViewById(R.id.txt_push_message);
 
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -68,11 +68,8 @@ public class NotificationActivity extends AppCompatActivity {
 
                 } else if (intent.getAction().equals(PUSH_NOTIFICATION)) {
                     // new push notification is received
-
                     String message = intent.getStringExtra("message");
-
                     Toast.makeText(getApplicationContext(), "Push notification: " + message, Toast.LENGTH_LONG).show();
-
                     txtMessage.setText(message);
                 }
             }
@@ -80,7 +77,6 @@ public class NotificationActivity extends AppCompatActivity {
 
         displayFirebaseRegId();
     }
-
 
     // Fetches reg id from shared preferences
     // and displays on the screen

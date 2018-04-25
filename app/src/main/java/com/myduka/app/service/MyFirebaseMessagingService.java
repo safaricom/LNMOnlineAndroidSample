@@ -33,7 +33,6 @@ import org.json.JSONObject;
 
 import static com.myduka.app.util.AppConstants.PUSH_NOTIFICATION;
 
-
 /**
  * Created  on 6/30/2017.
  */
@@ -80,7 +79,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             // play notification sound
             NotificationUtils notificationUtils = new NotificationUtils(getApplicationContext());
             notificationUtils.playNotificationSound();
-        }else{
+        } else {
             // If the app is in background, firebase itself handles the notification
         }
     }

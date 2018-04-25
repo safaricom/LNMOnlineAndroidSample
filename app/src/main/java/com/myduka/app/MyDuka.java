@@ -28,7 +28,7 @@ import timber.log.Timber;
  * Created  on 8/2/2017.
  */
 
-public class MyDuka extends MultiDexApplication{
+public class MyDuka extends MultiDexApplication {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
@@ -36,6 +36,5 @@ public class MyDuka extends MultiDexApplication{
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         }
-
     }
 }

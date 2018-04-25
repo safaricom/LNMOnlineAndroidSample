@@ -21,7 +21,6 @@ package com.myduka.app.ui.activity;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
@@ -54,13 +53,13 @@ import com.myduka.app.ui.callback.PriceTransfer;
 import com.myduka.app.util.NotificationUtils;
 import com.myduka.app.util.SharedPrefsUtil;
 import com.myduka.app.util.Utils;
+import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -74,7 +73,6 @@ import static com.myduka.app.util.AppConstants.PUSH_NOTIFICATION;
 import static com.myduka.app.util.AppConstants.REGISTRATION_COMPLETE;
 import static com.myduka.app.util.AppConstants.TOPIC_GLOBAL;
 import static com.myduka.app.util.AppConstants.TRANSACTION_TYPE;
-
 
 public class MainActivity extends AppCompatActivity implements PriceTransfer {
 
@@ -115,7 +113,6 @@ public class MainActivity extends AppCompatActivity implements PriceTransfer {
         cartItems.add("Tomatoes");
         cartItems.add("Apples");
         cartItems.add("Bananas");
-
 
         ArrayList<String> cartPrices = new ArrayList<>();
         cartPrices.add("1");
@@ -211,20 +208,14 @@ public class MainActivity extends AppCompatActivity implements PriceTransfer {
         input.setHint(getString(R.string.hint_phone_number));
         builder.setView(input);
 
-        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String phone_number = input.getText().toString();
-                performSTKPush(phone_number);
-            }
+        builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
+            String phone_number = input.getText().toString();
+            performSTKPush(phone_number);
         });
-        builder.setNegativeButton(getString(R.string.clear_cart), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                mPriceArrayList.clear();
-                mButtonCheckout.setText(getString(R.string.checkout));
-                dialog.cancel();
-            }
+        builder.setNegativeButton(getString(R.string.clear_cart), (dialog, which) -> {
+            mPriceArrayList.clear();
+            mButtonCheckout.setText(getString(R.string.checkout));
+            dialog.cancel();
         });
 
         builder.show();
@@ -316,7 +307,6 @@ public class MainActivity extends AppCompatActivity implements PriceTransfer {
         int sum = 0;
         for (int i = 0; i < prices.size(); i++) {
             sum = sum + prices.get(i);
-            //Log.e("value to calculate", String.valueOf(mPriceArrayList.get(i)));
         }
 
         if (prices.size() == 0) {
@@ -336,12 +326,9 @@ public class MainActivity extends AppCompatActivity implements PriceTransfer {
             new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
                     .setTitleText(getString(R.string.title_success))
                     .setContentText(getString(R.string.dialog_message_success))
-                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                        @Override
-                        public void onClick(SweetAlertDialog sDialog) {
-                            sDialog.dismissWithAnimation();
-                            mSharedPrefsUtil.saveIsFirstTime(false);
-                        }
+                    .setConfirmClickListener(sDialog -> {
+                        sDialog.dismissWithAnimation();
+                        mSharedPrefsUtil.saveIsFirstTime(false);
                     })
                     .show();
         }

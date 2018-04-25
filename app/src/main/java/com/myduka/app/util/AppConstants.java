@@ -43,5 +43,4 @@ public class AppConstants {
     public static final String PARTYB = "174379";
     public static final String CALLBACKURL = "https://spurquoteapp.ga/pusher/pusher.php?title=stk_push&message=result&push_type=individual&regId=";
 
-
 }
