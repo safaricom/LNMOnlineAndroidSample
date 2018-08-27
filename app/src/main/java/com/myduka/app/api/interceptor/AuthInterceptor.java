@@ -4,7 +4,6 @@ package com.myduka.app.api.interceptor;
 
 import android.support.annotation.NonNull;
 
-import com.myduka.app.api.ApiClient;
 
 import java.io.IOException;
 
@@ -14,7 +13,7 @@ import okhttp3.Response;
 
 /**
  * This class add information an authorization key to {@link okhttp3.OkHttpClient} which is passed in
- * {@link ApiClient#getRestAdapter()} which is required when making a request.
+ * {ApiClient#getRestAdapter} which is required when making a request.
  *
  * @author Thomas Kioko
  */

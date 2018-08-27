@@ -1,6 +1,6 @@
 package com.myduka.app.api;
 
-import com.myduka.app.api.interceptor.AccessTokenIterceptor;
+import com.myduka.app.api.interceptor.AccessTokenInterceptor;
 import com.myduka.app.api.interceptor.AuthInterceptor;
 import com.myduka.app.api.services.STKPushService;
 
@@ -98,7 +98,7 @@ public class ApiClient {
         OkHttpClient.Builder okhttpBuilder = okHttpClient();
 
         if (isGetAccessToken) {
-            okhttpBuilder.addInterceptor(new AccessTokenIterceptor());
+            okhttpBuilder.addInterceptor(new AccessTokenInterceptor());
         }
 
         if (mAuthToken != null && !mAuthToken.isEmpty()) {
