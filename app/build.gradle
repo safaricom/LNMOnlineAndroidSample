@@ -47,11 +47,10 @@ android {
     }
 
     buildTypes.each {
-        it.buildConfigField 'String', 'CONSUMER_KEY', '"YOUR_CONSUMER_KEY"'
-        it.buildConfigField 'String', 'CONSUMER_SECRET', '"YOUR_CONSUMER_SECRET"'
 
-        //Get them from https://developer.safaricom.co.ke/user/me/apps
-        //Remember string values should have double quotes
+        // CONSUMER_KEY & CONSUMER_SECRET Build Variables are referenced from gradle.properties file
+        it.buildConfigField 'String', 'CONSUMER_KEY', DARAJA_CONSUMER_KEY
+        it.buildConfigField 'String', 'CONSUMER_SECRET', DARAJA_CONSUMER_SECRET
     }
 
 }
