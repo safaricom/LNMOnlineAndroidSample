@@ -1,6 +1,6 @@
 Lipa Na Mpesa Android Sample
 ------------------------------
-This app demonstrates how to impeliment Lipa Na MPESA Online.
+This is a Kotlin app that demonstrates how to implement Lipa Na MPESA Online.
 Documentation on the API can be found on [Safaricom Developer Portal] (https://developer.safaricom.co.ke/docs)
 
 ### Requirements
