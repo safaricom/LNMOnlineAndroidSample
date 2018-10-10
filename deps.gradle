@@ -1,4 +1,6 @@
 def versions = [
+        kotlin          : '1.2.71',
+        dataBinding     : '3.1.4',
         supportLib      : '27.1.1',
         constraintLayout: '1.0.2',
         multidex        : '1.0.3',
@@ -51,5 +53,6 @@ ext.deps = [
         timber        : 'com.jakewharton.timber:timber:' + versions.timber,
         firebase      : 'com.google.firebase:firebase-messaging:' + versions.firebase,
         sweetalert    : 'com.github.thomper:sweet-alert-dialog:' + versions.sweetalert,
-
+        kotlin        : 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:' + versions.kotlin,
+        dataBinding   : 'com.android.databinding:compiler:' + versions.dataBinding,
 ]
