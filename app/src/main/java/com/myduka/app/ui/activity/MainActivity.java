@@ -76,11 +76,8 @@ import static com.myduka.app.util.AppConstants.TRANSACTION_TYPE;
 
 public class MainActivity extends AppCompatActivity implements PriceTransfer {
 
-    @BindView(R.id.cart_list)
     RecyclerView mRecyclerViewCartList;
-    @BindView(R.id.txt_response)
     TextView mTVResponse;
-    @BindView(R.id.buttonCheckout)
     Button mButtonCheckout;
 
     private String mFireBaseRegId;
@@ -94,7 +91,17 @@ public class MainActivity extends AppCompatActivity implements PriceTransfer {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+
+        mRecyclerViewCartList = findViewById(R.id.cart_list);
+        mTVResponse = findViewById(R.id.txt_response);
+        mButtonCheckout = findViewById(R.id.buttonCheckout);
+
+
+        mButtonCheckout.setOnClickListener(v -> {
+            if (mPriceArrayList.size() > 0)
+                //Calling getPhoneNumber method.
+                showCheckoutDialog();
+        });
 
         mProgressDialog = new ProgressDialog(this);
         mSharedPrefsUtil = new SharedPrefsUtil(this);
@@ -143,17 +150,6 @@ public class MainActivity extends AppCompatActivity implements PriceTransfer {
         getFirebaseRegId();
     }
 
-    @OnClick({R.id.buttonCheckout})
-    public void onClickViews(View view) {
-        switch (view.getId()) {
-            case R.id.buttonCheckout:
-                if (mPriceArrayList.size() > 0)
-                    //Calling getPhoneNumber method.
-                    showCheckoutDialog();
-                break;
-        }
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -187,8 +183,8 @@ public class MainActivity extends AppCompatActivity implements PriceTransfer {
             @Override
             public void onResponse(@NonNull Call<AccessToken> call, @NonNull Response<AccessToken> response) {
 
-                if (response.isSuccessful()) {
-                    mApiClient.setAuthToken(response.body().accessToken);
+                if (response.isSuccessful() && response.body() != null) {
+                    mApiClient.setAuthToken(response.body().getAccessToken());
                 }
             }
 
@@ -319,7 +315,7 @@ public class MainActivity extends AppCompatActivity implements PriceTransfer {
 
     public void showResultDialog(String result) {
         Timber.d(result);
-        if (!mSharedPrefsUtil.getIsFirstTime()) {
+        if (!mSharedPrefsUtil.isFirstTime()) {
             // run your one time code
             mSharedPrefsUtil.saveIsFirstTime(true);
 
