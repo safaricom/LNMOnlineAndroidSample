@@ -16,20 +16,28 @@
  *
  */
 
-package com.myduka.app;
+package com.myduka.app.api.services
 
-import org.junit.Test;
+import com.myduka.app.api.model.AccessToken
+import com.myduka.app.api.model.STKPush
 
-import static org.junit.Assert.*;
+import retrofit2.Call
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.POST
 
 /**
- * Example local unit test, which will execute on the development machine (host).
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * Created  on 5/28/2017.
  */
-public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
-    }
+
+interface STKPushService {
+
+    @GET("jobs/pending")
+    fun getTasks(): Call<STKPush>
+
+    @GET("oauth/v1/generate?grant_type=client_credentials")
+    fun getAccessToken(): Call<AccessToken>
+
+    @POST("mpesa/stkpush/v1/processrequest")
+    fun sendPush(@Body stkPush: STKPush): Call<STKPush>
 }

@@ -16,25 +16,27 @@
  *
  */
 
-package com.myduka.app;
+package com.myduka.app
 
-import android.content.Context;
-import android.support.multidex.MultiDex;
-import android.support.multidex.MultiDexApplication;
-
-import timber.log.Timber;
+import android.support.test.InstrumentationRegistry
+import android.support.test.runner.AndroidJUnit4
+import org.junit.Assert.assertEquals
+import org.junit.Test
+import org.junit.runner.RunWith
 
 /**
- * Created  on 8/2/2017.
+ * Instrumentation test, which will execute on an Android device.
+ *
+ * @see [Testing documentation](http://d.android.com/tools/testing)
  */
+@RunWith(AndroidJUnit4::class)
+class ExampleInstrumentedTest {
+    @Test
+    @Throws(Exception::class)
+    fun useAppContext() {
+        // Context of the app under test.
+        val appContext = InstrumentationRegistry.getTargetContext()
 
-public class MyDuka extends MultiDexApplication {
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        MultiDex.install(this);
-
-        if (BuildConfig.DEBUG) {
-            Timber.plant(new Timber.DebugTree());
-        }
+        assertEquals("com.myduka.app", appContext.packageName)
     }
 }

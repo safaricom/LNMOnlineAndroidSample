@@ -16,26 +16,16 @@
  *
  */
 
-package com.myduka.app.api.model;
+package com.myduka.app.api.model
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
 /**
  * Created  on 7/13/2017.
  */
 
-public class AccessToken {
-    @SerializedName("access_token")
-    @Expose
-    public String accessToken;
-    @SerializedName("expires_in")
-    @Expose
-    private String expiresIn;
-
-    public AccessToken(String accessToken, String expiresIn) {
-        this.accessToken = accessToken;
-        this.expiresIn = expiresIn;
-    }
-
-}
+class AccessToken(@field:SerializedName("access_token") @field:Expose
+                  val accessToken: String,
+                  @field:SerializedName("expires_in") @field:Expose
+                  val expiresIn: String)

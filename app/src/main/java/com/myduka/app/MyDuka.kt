@@ -16,14 +16,31 @@
  *
  */
 
-package com.myduka.app.ui.callback;
+package com.myduka.app
 
-import java.util.ArrayList;
+import android.content.Context
+import android.support.multidex.MultiDex
+import android.support.multidex.MultiDexApplication
+import com.myduka.app.util.SharedPrefsUtil
+
+import timber.log.Timber
 
 /**
- * Created  on 8/1/2017.
+ * Created  on 8/2/2017.
+ *
+ * Converted to Kotlin by Eton Otieno
  */
 
-public interface PriceTransfer {
-    public void setPrices(ArrayList<Integer> prices);
+class MyDuka : MultiDexApplication() {
+
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(base)
+        MultiDex.install(this)
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
+    }
+
+
 }
