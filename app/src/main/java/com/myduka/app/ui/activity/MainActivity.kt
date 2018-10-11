@@ -31,15 +31,13 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.Toolbar
 import android.text.InputType
 import android.text.TextUtils
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 
 import com.google.firebase.messaging.FirebaseMessaging
 import com.myduka.app.R
@@ -78,6 +76,7 @@ class MainActivity : AppCompatActivity(), PriceTransfer {
     private lateinit var mRecyclerViewCartList: RecyclerView
     private lateinit var mTVResponse: TextView
     private lateinit var mButtonCheckout: Button
+    private lateinit var mToolbar: Toolbar
     private lateinit var mFireBaseRegId: String
     private lateinit var mProgressDialog: ProgressDialog
     private lateinit var mSharedPrefsUtil: SharedPrefsUtil
@@ -109,6 +108,11 @@ class MainActivity : AppCompatActivity(), PriceTransfer {
         mRecyclerViewCartList = findViewById(R.id.cart_list)
         mTVResponse = findViewById(R.id.txt_response)
         mButtonCheckout = findViewById(R.id.buttonCheckout)
+        mToolbar = findViewById(R.id.toolbar)
+
+        setSupportActionBar(mToolbar)
+
+        supportActionBar?.title = getString(R.string.home_toolbar)
 
         mButtonCheckout.setOnClickListener {
             //Calling getPhoneNumber method.

@@ -36,4 +36,7 @@
 
     <!-- Hints -->
     <string name="hint_phone_number">07xxxxxxxx</string>
+
+    <!-- Home Toolbar -->
+    <string name="home_toolbar">Home</string>
 </resources>
