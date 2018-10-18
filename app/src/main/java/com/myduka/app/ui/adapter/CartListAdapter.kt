@@ -30,6 +30,7 @@ import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.myduka.app.R
 import com.myduka.app.ui.callback.PriceTransfer
+import kotlinx.android.synthetic.main.category_list_item.view.*
 import java.util.*
 
 /**
@@ -49,20 +50,28 @@ class CartListAdapter(private val context: Context, private val items: List<Stri
     }
 
     override fun onBindViewHolder(viewHolder: CartListAdapter.ViewHolder, i: Int) {
-        viewHolder.item_name.text = items[i]
-        viewHolder.btn_add_to_cart.text = "Add Kshs " + item_prices[i]
-        viewHolder.item_description.text = items[i] + " fresh and healthy now available."
+        val item = items[i]
+        val itemPrice = item_prices[i]
+        viewHolder.item_name.text = item
+        viewHolder.btn_add_to_cart.text = "Add Kshs $itemPrice"
+        viewHolder.item_description.text = "$item fresh and healthy now available."
 
-        when {
-            items[i] == "Tomatoes" -> Glide.with(context)
-                    .load(R.drawable.tomatoes)
-                    .into(viewHolder.item_image)
-            items[i] == "Apples" -> Glide.with(context)
-                    .load(R.drawable.apples)
-                    .into(viewHolder.item_image)
-            items[i] == "Bananas" -> Glide.with(context)
-                    .load(R.drawable.bananas)
-                    .into(viewHolder.item_image)
+        when (item) {
+            "Tomatoes" -> {
+                Glide.with(context)
+                        .load(R.drawable.tomatoes)
+                        .into(viewHolder.item_image)
+            }
+            "Apples" -> {
+                Glide.with(context)
+                        .load(R.drawable.apples)
+                        .into(viewHolder.item_image)
+            }
+            "Bananas" -> {
+                Glide.with(context)
+                        .load(R.drawable.bananas)
+                        .into(viewHolder.item_image)
+            }
         }
     }
 
@@ -72,10 +81,10 @@ class CartListAdapter(private val context: Context, private val items: List<Stri
     override fun getItemCount(): Int = items.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
-        val item_image: ImageView = view.findViewById(R.id.item_image)
-        val item_name: TextView = view.findViewById(R.id.item_name)
-        val item_description: TextView = view.findViewById(R.id.item_description)
-        val btn_add_to_cart: Button = view.findViewById(R.id.btn_add_to_cart)
+        val item_image: ImageView = view.item_image
+        val item_name: TextView = view.item_name
+        val item_description: TextView = view.item_description
+        val btn_add_to_cart: Button = view.btn_add_to_cart
 
         init {
             btn_add_to_cart.setOnClickListener(this)

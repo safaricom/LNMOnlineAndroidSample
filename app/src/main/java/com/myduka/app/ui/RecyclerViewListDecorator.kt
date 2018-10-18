@@ -30,7 +30,7 @@ import android.view.View
 /**
  * Created by Brayo on 8/28/2016.
  */
-class RecyclerviewListDecorator(context: Context, orientation: Int) : RecyclerView.ItemDecoration() {
+class RecyclerViewListDecorator(context: Context, orientation: Int) : RecyclerView.ItemDecoration() {
     private val mDivider: Drawable?
 
     private var mOrientation: Int = 0
@@ -61,7 +61,7 @@ class RecyclerviewListDecorator(context: Context, orientation: Int) : RecyclerVi
     }
 
     /**
-     * Drawing only virtical lines in Android
+     * Drawing only vertical lines in Android
      */
     private fun drawVertical(c: Canvas, parent: RecyclerView) {
         val left = parent.paddingLeft
@@ -108,8 +108,8 @@ class RecyclerviewListDecorator(context: Context, orientation: Int) : RecyclerVi
 
     companion object {
 
-        private val HORIZONTAL_LIST = LinearLayoutManager.HORIZONTAL
-        private val VERTICAL_LIST = LinearLayoutManager.VERTICAL
+        private const val HORIZONTAL_LIST = LinearLayoutManager.HORIZONTAL
+        private const val VERTICAL_LIST = LinearLayoutManager.VERTICAL
         private val ATTRS = intArrayOf(android.R.attr.listDivider)
     }
 }

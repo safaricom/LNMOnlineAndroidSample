@@ -38,18 +38,14 @@ import com.myduka.app.util.SharedPrefsUtil
 import com.myduka.app.util.AppConstants.PUSH_NOTIFICATION
 import com.myduka.app.util.AppConstants.REGISTRATION_COMPLETE
 import com.myduka.app.util.AppConstants.TOPIC_GLOBAL
+import kotlinx.android.synthetic.main.activity_notification.*
 
 class NotificationActivity : AppCompatActivity() {
     private lateinit var mRegistrationBroadcastReceiver: BroadcastReceiver
-    private lateinit var txtMessage: TextView
-    private lateinit var txtRegId: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notification)
-
-        txtRegId = findViewById(R.id.txt_reg_id)
-        txtMessage = findViewById(R.id.txt_push_message)
 
         mRegistrationBroadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
@@ -66,7 +62,7 @@ class NotificationActivity : AppCompatActivity() {
                     // new push notification is received
                     val message = intent.getStringExtra("message")
                     Toast.makeText(applicationContext, "Push notification: $message", Toast.LENGTH_LONG).show()
-                    txtMessage.text = message
+                    txt_push_message.text = message
                 }
             }
         }
@@ -80,9 +76,9 @@ class NotificationActivity : AppCompatActivity() {
         val sharedPrefsUtil = SharedPrefsUtil(this)
         val regId = sharedPrefsUtil.firebaseRegistrationID
         if (!TextUtils.isEmpty(regId))
-            txtRegId.setText("Firebase Reg Id: $regId")
+            txt_reg_id.setText("Firebase Reg Id: $regId")
         else
-            txtRegId.setText("Firebase Reg Id is not received yet!")
+            txt_reg_id.setText("Firebase Reg Id is not received yet!")
     }
 
     override fun onResume() {

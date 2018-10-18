@@ -30,38 +30,20 @@ import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.Toolbar
 import android.text.InputType
 import android.text.TextUtils
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.*
-
+import android.widget.EditText
+import android.widget.Toast
 import com.google.firebase.messaging.FirebaseMessaging
 import com.myduka.app.R
 import com.myduka.app.api.ApiClient
 import com.myduka.app.api.model.AccessToken
 import com.myduka.app.api.model.STKPush
-import com.myduka.app.ui.RecyclerviewListDecorator
+import com.myduka.app.ui.RecyclerViewListDecorator
 import com.myduka.app.ui.adapter.CartListAdapter
 import com.myduka.app.ui.callback.PriceTransfer
-import com.myduka.app.util.NotificationUtils
-import com.myduka.app.util.SharedPrefsUtil
-import com.myduka.app.util.Utils
-import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog
-
-import java.util.ArrayList
-
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.OnClick
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import timber.log.Timber
-
 import com.myduka.app.util.AppConstants.BUSINESS_SHORT_CODE
 import com.myduka.app.util.AppConstants.CALLBACKURL
 import com.myduka.app.util.AppConstants.PARTYB
@@ -70,13 +52,20 @@ import com.myduka.app.util.AppConstants.PUSH_NOTIFICATION
 import com.myduka.app.util.AppConstants.REGISTRATION_COMPLETE
 import com.myduka.app.util.AppConstants.TOPIC_GLOBAL
 import com.myduka.app.util.AppConstants.TRANSACTION_TYPE
+import com.myduka.app.util.NotificationUtils
+import com.myduka.app.util.SharedPrefsUtil
+import com.myduka.app.util.Utils
+import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import timber.log.Timber
+import java.util.*
 
 class MainActivity : AppCompatActivity(), PriceTransfer {
 
-    private lateinit var mRecyclerViewCartList: RecyclerView
-    private lateinit var mTVResponse: TextView
-    private lateinit var mButtonCheckout: Button
-    private lateinit var mToolbar: Toolbar
     private lateinit var mFireBaseRegId: String
     private lateinit var mProgressDialog: ProgressDialog
     private lateinit var mSharedPrefsUtil: SharedPrefsUtil
@@ -105,16 +94,11 @@ class MainActivity : AppCompatActivity(), PriceTransfer {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        mRecyclerViewCartList = findViewById(R.id.cart_list)
-        mTVResponse = findViewById(R.id.txt_response)
-        mButtonCheckout = findViewById(R.id.buttonCheckout)
-        mToolbar = findViewById(R.id.toolbar)
-
-        setSupportActionBar(mToolbar)
+        setSupportActionBar(toolbar)
 
         supportActionBar?.title = getString(R.string.home_toolbar)
 
-        mButtonCheckout.setOnClickListener {
+        buttonCheckout.setOnClickListener {
             //Calling getPhoneNumber method.
             if (mPriceArrayList.size > 0) showCheckoutDialog()
         }
@@ -139,11 +123,11 @@ class MainActivity : AppCompatActivity(), PriceTransfer {
             add("120")
         }
 
-        mRecyclerViewCartList.apply {
+        cart_list.apply {
             this.layoutManager = LinearLayoutManager(this@MainActivity,
                     LinearLayoutManager.VERTICAL, false)
 
-            addItemDecoration(RecyclerviewListDecorator(this@MainActivity,
+            addItemDecoration(RecyclerViewListDecorator(this@MainActivity,
                     LinearLayoutManager.HORIZONTAL))
 
             adapter = CartListAdapter(this@MainActivity, cartItems, cartPrices,
@@ -167,7 +151,7 @@ class MainActivity : AppCompatActivity(), PriceTransfer {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_checkout -> {
-                Snackbar.make(findViewById(R.id.pay_layout), "Item 1 Selected", Snackbar.LENGTH_LONG)
+                Snackbar.make(pay_layout, "Item 1 Selected", Snackbar.LENGTH_LONG)
                         .setActionTextColor(Color.RED)
                         .show()
                 true
@@ -208,7 +192,7 @@ class MainActivity : AppCompatActivity(), PriceTransfer {
         }
         builder.setNegativeButton(getString(R.string.clear_cart)) { dialog, _ ->
             mPriceArrayList.clear()
-            mButtonCheckout.text = getString(R.string.checkout)
+            buttonCheckout.text = getString(R.string.checkout)
             dialog.cancel()
         }
 
@@ -286,7 +270,7 @@ class MainActivity : AppCompatActivity(), PriceTransfer {
 
     override fun setPrices(prices: ArrayList<Int>) {
         this.mPriceArrayList = prices
-        mButtonCheckout.text = getString(R.string.checkout_value, getTotal(prices))
+        buttonCheckout.text = getString(R.string.checkout_value, getTotal(prices))
     }
 
     private fun getTotal(prices: ArrayList<Int>): Int {
