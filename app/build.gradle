@@ -77,7 +77,7 @@ dependencies {
     implementation deps.glide.core
     annotationProcessor deps.glide.compiler
     //Sweet Alert Replacement
-    implementation deps.sweetalert
+    implementation 'com.github.f0ris.sweetalert:library:1.5.6'
     //Retrofit - Network Client
     implementation deps.retrofit.core
     implementation deps.retrofit.gsonConverter
